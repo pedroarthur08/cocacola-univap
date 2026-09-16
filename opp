@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoção Refrescante - Coca-Cola</title>
+    <style>
+        /* Estilos base */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container principal simulando um banner/anúncio */
+        .ad-container {
+            background: linear-gradient(135deg, #F40009 0%, #cc0000 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ondas decorativas (Estilo marca) */
+        .ad-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .ad-container::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Estilização do formulário */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border: 2px solid #fff;
+        }
+
+        button {
+            background-color: #111;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* Seção de resultado */
+        #resultado {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        #resultado h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        #resultado img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ad-container">
+        <!-- Seção do Formulário -->
+        <div id="questionario">
+            <h1>Abra a Felicidade!</h1>
+            <p>Responda ao nosso questionário rápido e descubra sua surpresa.</p>
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Digite seu nome">
+            </div>
+            
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input type="number" id="idade" placeholder="Sua idade">
+            </div>
+            
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+            </div>
+            
+            <button onclick="enviarFormulario()">Participar</button>
+        </div>
+
+        <!-- Seção do Resultado -->
+        <div id="resultado">
+            <h2>Parabéns!</h2>
+            <p>Você participou da nossa promoção com sucesso.</p>
+            <!-- A imagem gerada pela IA entra aqui -->
+            <img src="watermarked_img_11447358824047823426.jpg" alt="Você Ganhou!">
+        </div>
+    </div>
+
+    <script>
+        // Função simples para formatar o CPF enquanto o usuário digita
+        document.getElementById('cpf').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.replace(/^(\d{3})(\d)/, '$1.$2');
+            if (value.length > 6) value = value.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+            if (value.length > 9) value = value.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
+            e.target.value = value;
+        });
+
+        // Função executada ao clicar no botão
+        function enviarFormulario() {
+            var nome = document.getElementById('nome').value.trim();
+            var idade = document.getElementById('idade').value.trim();
+            var cpf = document.getElementById('cpf').value.trim();
+
+            // Validação simples
+            if(nome === '' || idade === '' || cpf === '') {
+                alert('Por favor, preencha todos os campos para participar!');
+                return;
+            }
+
+            // Oculta o questionário
+            document.getElementById('questionario').style.display = 'none';
+            
+            // Exibe a tela de resultado com a imagem
+            document.getElementById('resultado').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
